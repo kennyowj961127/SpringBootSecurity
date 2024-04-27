@@ -1,0 +1,7 @@
+spring:
+  application:
+    name:  Spring Boot Basic Security
+  security:
+    user:
+      name: kenny
+      password: 123456

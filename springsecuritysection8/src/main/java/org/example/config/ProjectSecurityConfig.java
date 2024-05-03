@@ -1,6 +1,8 @@
 package org.example.config;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.example.filter.AuthoritiesLoggingAfterFilter;
+import org.example.filter.AuthoritiesLoggingAtFilter;
 import org.example.filter.CsrfCookieFilter;
 import org.example.filter.RequestValidationBeforeFilter;
 import org.springframework.context.annotation.Bean;
@@ -58,8 +60,10 @@ public class ProjectSecurityConfig {
                         )))
                 .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/contact", "/register")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/myAccount").hasRole("USER")
                         .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")

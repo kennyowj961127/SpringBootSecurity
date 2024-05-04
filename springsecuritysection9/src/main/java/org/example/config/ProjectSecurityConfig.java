@@ -1,10 +1,7 @@
 package org.example.config;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.example.filter.AuthoritiesLoggingAfterFilter;
-import org.example.filter.AuthoritiesLoggingAtFilter;
-import org.example.filter.CsrfCookieFilter;
-import org.example.filter.RequestValidationBeforeFilter;
+import org.example.filter.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -65,6 +62,7 @@ public class ProjectSecurityConfig {
                 .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/myAccount").hasRole("USER")
                         .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")

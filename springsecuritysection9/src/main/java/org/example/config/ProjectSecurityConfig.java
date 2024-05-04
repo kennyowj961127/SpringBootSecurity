@@ -28,6 +28,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 import javax.sql.DataSource;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -42,8 +43,7 @@ public class ProjectSecurityConfig {
         CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
         requestHandler.setCsrfRequestAttributeName("_csrf");
 
-        http.securityContext((context)->context.requireExplicitSave(false))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+        http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // for JWT
                 .cors((cors) -> cors.configurationSource(
                         (new CorsConfigurationSource() {
                             @Override
@@ -52,6 +52,7 @@ public class ProjectSecurityConfig {
                                 config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
                                 config.setAllowedMethods(Collections.singletonList("*"));
                                 config.setAllowedHeaders(Collections.singletonList("*"));
+                                config.setExposedHeaders(Arrays.asList("Authorization")); // for JWT
                                 config.setAllowCredentials(true);
                                 config.setMaxAge(3600L);
                                 return config;

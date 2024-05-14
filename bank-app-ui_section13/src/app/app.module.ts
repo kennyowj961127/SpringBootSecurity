@@ -21,8 +21,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     keycloak.init({
       config: {
         url: 'http://localhost:8180/',
-        realm: 'eazybankdev',
-        clientId: 'eazypublicclient',
+        realm: 'kennybankdev',
+        clientId: 'kennypublicclient',
       },
       initOptions: {
         pkceMethod: 'S256',

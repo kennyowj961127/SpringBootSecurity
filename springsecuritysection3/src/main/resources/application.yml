@@ -2,11 +2,17 @@ spring:
   application:
     name:  Spring Boot Basic Security
   datasource:
-    url: jdbc:mysql://springsecurity.ct2gaqymmeqz.ap-southeast-1.rds.amazonaws.com/kennybank
-    username: admin
-    password: mysqladmin
+    url: jdbc:mysql://localhost:3306/eazybank
+    username: root
+    password: admin
   jpa:
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security=${SPRING_SECURITY_LOG_LEVEL:TRACE}: # Set the log level for Spring Security

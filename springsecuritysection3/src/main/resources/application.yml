@@ -3,8 +3,8 @@ spring:
     name:  Spring Boot Basic Security
   datasource:
     url: jdbc:mysql://localhost:3306/eazybank
-    username: root
-    password: admin
+    username: dbeaver
+    password: dbeaver
   jpa:
     show-sql: true
     properties:

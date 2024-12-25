@@ -4,7 +4,7 @@ spring:
   config:
     import: application_prod.yml
   profiles:
-    active: prod
+    active: default
   datasource:
     url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:eazybank}
     username: ${DATABASE_USER:dbeaver}

@@ -1,5 +1,6 @@
 package org.example.config;
 
+import org.example.exception.CustomBasicAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -24,7 +25,7 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/myAccount", "myBalance", "myLoans", "myCards").authenticated()
                 .requestMatchers("/notices", "/contact","/error", "/register").permitAll())
                 .formLogin(withDefaults())
-                .httpBasic(withDefaults());
+                .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
 
         return http.build();
     }

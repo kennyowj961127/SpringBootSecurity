@@ -27,4 +27,4 @@ logging:
 server:
   servlet:
     session:
-      timeout: ${SERVER_SERVLET_SESSION_TIMEOUT:2m}
+      timeout: ${SERVER_SERVLET_SESSION_TIMEOUT:20m}

@@ -1,5 +1,6 @@
 package org.example.config;
 
+import org.example.exception.CustomAccessDeniedHandler;
 import org.example.exception.CustomBasicAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,8 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/myAccount", "myBalance", "myLoans", "myCards").authenticated()
                 .requestMatchers("/notices", "/contact","/error", "/register").permitAll())
                 .formLogin(withDefaults())
-                .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
+                .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()))
+                .exceptionHandling((exceptionHandling) -> exceptionHandling.accessDeniedHandler(new CustomAccessDeniedHandler()));
 
         return http.build();
     }
@@ -37,7 +39,7 @@ public class ProjectSecurityConfig {
 
     /**
      * From Spring Security 6.3 version
-     * @return
+     * @return CompromisedPasswordChecker
      */
     @Bean
     public CompromisedPasswordChecker compromisedPasswordChecker() {

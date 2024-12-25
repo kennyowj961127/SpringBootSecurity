@@ -20,11 +20,12 @@ public class ProjectSecurityProdConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.requiresChannel((channel) -> channel.anyRequest().requiresSecure())
+        http.sessionManagement((sessionManagement) -> sessionManagement.invalidSessionUrl("/invalidSession"))
+                .requiresChannel((channel) -> channel.anyRequest().requiresSecure())
                 .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((requests)->requests
                 .requestMatchers("/myAccount", "myBalance", "myLoans", "myCards").authenticated()
-                .requestMatchers("/notices", "/contact","/error", "/register").permitAll())
+                .requestMatchers("/notices", "/contact","/error", "/register","/invalidSession").permitAll())
                 .formLogin(withDefaults())
                 .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()))
                 .exceptionHandling((exceptionHandling) -> exceptionHandling.accessDeniedHandler(new CustomAccessDeniedHandler()));

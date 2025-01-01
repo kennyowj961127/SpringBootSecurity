@@ -11,8 +11,8 @@
 	<groupId>org.example</groupId>
 	<artifactId>springsecuritysection4</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springsecuritysection4</name>
-	<description>springsecuritysection4</description>
+	<name>springsecuritysection8</name>
+	<description>springsecuritysection8</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

@@ -25,7 +25,7 @@ public class ProjectSecurityConfig {
                 .requiresChannel((channel) -> channel.anyRequest().requiresInsecure())
                 .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((requests)->requests
-                .requestMatchers("/myAccount", "myBalance", "myLoans", "myCards").authenticated()
+                .requestMatchers("/myAccount", "myBalance", "myLoans", "myCards", "/user").authenticated()
                 .requestMatchers("/notices", "/contact","/error", "/register", "/invalidSession").permitAll())
                 .formLogin(withDefaults())
                 .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()))

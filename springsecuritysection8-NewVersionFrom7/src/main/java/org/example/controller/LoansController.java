@@ -1,12 +1,28 @@
 package org.example.controller;
 
+import org.example.model.Loans;
+import org.example.repository.LoanRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 public class LoansController {
+
+    private final LoanRepository loanRepository;
+
     @GetMapping("/myLoans")
-    public String getLoanDetails() {
-        return "My Loan Details from DB";
+    public List<Loans> getLoanDetails(@RequestParam long id) {
+        List<Loans> loans = loanRepository.findByCustomerIdOrderByStartDtDesc(id);
+        if (loans != null) {
+            return loans;
+        } else {
+            return null;
+        }
     }
+
 }

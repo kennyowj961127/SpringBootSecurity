@@ -1,0 +1,29 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name:  ${SPRING_APP_NAME:kennybankbackend}
+  datasource:
+    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:eazybank}
+    username: ${DATABASE_USER:dbeaver}
+    password: ${DATABASE_PASSWORD:dbeaver}
+  jpa:
+    show-sql: ${JPA_SHOW_SQL:false}
+    properties:
+      hibernate:
+        format_sql: ${JPA_FORMAT_SQL:false}
+
+logging:
+  level:
+    org:
+      springframework:
+        security: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY:ERROR}
+#        web: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB:TRACE}
+  pattern:
+    console: ${LOG_PATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
+
+server:
+  servlet:
+    session:
+      timeout: ${SERVER_SERVLET_SESSION_TIMEOUT:20m}

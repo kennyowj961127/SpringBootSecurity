@@ -18,7 +18,7 @@ logging:
   level:
     org:
       springframework:
-        security: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY:ERROR}
+#        security: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY:ERROR}
 #        web: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB:TRACE}
   pattern:
     console: ${LOG_PATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}

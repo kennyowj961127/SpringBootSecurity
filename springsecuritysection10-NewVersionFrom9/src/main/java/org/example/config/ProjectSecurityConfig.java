@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.example.exception.CustomAccessDeniedHandler;
 import org.example.exception.CustomBasicAuthenticationEntryPoint;
 import org.example.filter.CsrfCookieFilter;
+import org.example.filter.LoggingFilter;
+import org.example.filter.RequestValidationBeforeFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -50,6 +52,8 @@ public class ProjectSecurityConfig {
                         .ignoringRequestMatchers("/contact", "/register"))
                 .csrf(csrfConfig -> csrfConfig.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new LoggingFilter(), BasicAuthenticationFilter.class)
 //                .sessionManagement((sessionManagement) -> sessionManagement.invalidSessionUrl("/invalidSession").maximumSessions(3).maxSessionsPreventsLogin(true))
 //                .sessionManagement((sessionManagement) -> sessionManagement.sessionFixation((SessionManagementConfigurer.SessionFixationConfigurer::newSession)))
                 .requiresChannel((channel) -> channel.anyRequest().requiresInsecure())

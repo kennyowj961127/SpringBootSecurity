@@ -54,7 +54,12 @@ public class ProjectSecurityConfig {
 //                .sessionManagement((sessionManagement) -> sessionManagement.sessionFixation((SessionManagementConfigurer.SessionFixationConfigurer::newSession)))
                 .requiresChannel((channel) -> channel.anyRequest().requiresInsecure())
                 .authorizeHttpRequests((requests)->requests
-                .requestMatchers("/myAccount", "myBalance", "myLoans", "myCards", "/user").authenticated()
+//                .requestMatchers("/myAccount", "myBalance", "myLoans", "myCards", "/user").authenticated()
+                .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
+                .requestMatchers("/myBalance").hasAnyAuthority("VIEWBALANCE", "VIEWACCOUNT")
+                .requestMatchers("/myLoans").hasAuthority("VIEWLOANS")
+                .requestMatchers("/myCards").hasAuthority("VIEWCARDS")
+                .requestMatchers("/user").authenticated()
                 .requestMatchers("/notices", "/contact","/error", "/register", "/invalidSession").permitAll())
                 .formLogin(withDefaults())
                 .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()))

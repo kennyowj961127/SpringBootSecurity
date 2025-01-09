@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
         window.sessionStorage.setItem("XSRF-TOKEN",xsrf);
         this.model.authStatus = 'AUTH';
         window.sessionStorage.setItem("userdetails",JSON.stringify(this.model));
+        
         this.router.navigate(['dashboard']);
       });
 
